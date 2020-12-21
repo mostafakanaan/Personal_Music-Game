@@ -3,32 +3,54 @@ let playfield = document.getElementById('playfield');
 let songName = "No song found!";
 let prevCard = null;
 let prevCardNum = 0;
+let prevAudio = null;
 let cardNum = 0;
 let flip = new Audio('sfx/flip.mp3');
-let fairuz = new Audio('sfx/fairuz.mp3');
-fairuz.addEventListener("ended", () => {
-    playfield.classList.remove("playing")
-});
+
 const songs = [
     {
-        name: "Don't let me down",
+        name: "fairuz",
         cards: [1, 3]
     },
     {
-        name: "Bitte geh",
+        name: "Bitte Geh",
         cards: [5, 9]
+    },
+    {
+        name: "Baller los",
+        cards: [4, 8]
+    },
+    {
+        name: "Olabilir",
+        cards: [2, 7]
     }
 ];
 
-const openCard = function (e) {
+const openCard = function () {
     this.classList.add("rotate");
-    flip.play();
+    // flip.play();
     cardNum = this.textContent;
     this.textContent = "";
 
     setTimeout(() => {
 
-        fairuz.play();
+        if(prevAudio !== null)
+        {
+            prevAudio.pause();
+        }
+
+        songs.some(song => {
+            if (song.cards.includes(parseInt(cardNum))) {
+                const audio = new Audio('sfx/' + song.name + '.mp3');
+                audio.addEventListener("ended", () => {
+                    playfield.classList.remove("playing")
+                });
+                prevAudio = audio;
+                audio.play();
+                return;
+            }
+        })
+
         playfield.classList.add("playing");
         this.classList.add("play");
         this.classList.remove("rotate");
