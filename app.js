@@ -6,27 +6,29 @@ let prevCardNum = 0;
 let prevAudio = null;
 let cardNum = 0;
 let flip = new Audio('sfx/flip.mp3');
+let reservedNums = [];
 
 const songs = [
     {
         name: "fairuz",
-        cards: [1, 3]
+        cards: pickCardNums()
     },
     {
         name: "Bitte Geh",
-        cards: [5, 9]
+        cards: pickCardNums()
     },
     {
         name: "Baller los",
-        cards: [4, 8]
+        cards: pickCardNums()
     },
     {
         name: "Olabilir",
-        cards: [2, 7]
+        cards: pickCardNums()
     }
 ];
 
 const openCard = function () {
+
     this.classList.add("rotate");
     // flip.play();
     cardNum = this.textContent;
@@ -34,8 +36,7 @@ const openCard = function () {
 
     setTimeout(() => {
 
-        if(prevAudio !== null)
-        {
+        if (prevAudio !== null) {
             prevAudio.pause();
         }
 
@@ -43,7 +44,7 @@ const openCard = function () {
             if (song.cards.includes(parseInt(cardNum))) {
                 const audio = new Audio('sfx/' + song.name + '.mp3');
                 audio.addEventListener("ended", () => {
-                    playfield.classList.remove("playing")
+                    playfield.classList.remove("playing");
                 });
                 prevAudio = audio;
                 audio.play();
@@ -73,20 +74,46 @@ const openCard = function () {
                 }
             })
 
-            console.log(songName);
-
             // reset
-            prevCard.textContent = prevCardNum;
-            prevCard.classList.remove("play");
-            this.classList.remove("play");
-            this.textContent = cardNum;
-            prevCard = null;
-            prevCardNum = 0;
-            songName = "No song found!"
+
+
+            setTimeout(() => {
+                prevCard.classList.remove("play");
+                this.classList.remove("play");
+                playfield.classList.remove("playing");
+                prevCard.textContent = prevCardNum;
+                this.textContent = cardNum;
+                prevCard = null;
+                prevCardNum = 0;
+                cardNum = 0;
+                songName = "No song found!";
+            }, 5500);
         }
     }, 400);
 };
 
 for (let i = 0; i < allCards.length; i++) {
     allCards[i].addEventListener('click', openCard, false);
+}
+
+function pickCardNums() {
+    let res = []
+    let num1 = 0;
+    let num2 = 0;
+
+    do {
+        num1 = Math.floor(Math.random() * 40) + 1;
+    } while (reservedNums.includes(parseInt(num1)));
+
+    reservedNums.push(num1);
+    res.push(num1);
+
+
+    do {
+        num2 = Math.floor(Math.random() * 40) + 1;
+    } while (reservedNums.includes(parseInt(num2)));
+
+    reservedNums.push(num2);
+    res.push(num2);
+    return res;
 }
