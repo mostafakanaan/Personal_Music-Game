@@ -104,12 +104,22 @@ body {
     border-radius: 10px;
 }
 
-.card:hover {
+/* .card:hover {
     background: rgb(131, 58, 180);
     background: -moz-linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
     background: -webkit-linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
     background: linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4", endColorstr="#4645fc", GradientType=1);
+} */
+
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        background: rgb(131, 58, 180);
+        background: -moz-linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
+        background: -webkit-linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
+        background: linear-gradient(180deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(70, 69, 252, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4", endColorstr="#4645fc", GradientType=1);
+    }
 }
 
 .rotate {
