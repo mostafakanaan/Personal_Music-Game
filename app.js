@@ -6,6 +6,7 @@ let prevCardNum = 0;
 let prevAudio = null;
 let cardNum = 0;
 let flip = new Audio('sfx/flip.mp3');
+let openCards = [];
 let reservedNums = [];
 
 const songs = [
@@ -29,6 +30,9 @@ const songs = [
 
 const openCard = function () {
 
+    if(openCards.length === 2)
+        return;
+        
     this.classList.add("rotate");
     // flip.play();
     cardNum = this.textContent;
@@ -54,6 +58,7 @@ const openCard = function () {
 
         playfield.classList.add("playing");
         this.classList.add("play");
+        openCards.push(this.textContent);
         this.classList.remove("rotate");
 
 
@@ -80,6 +85,7 @@ const openCard = function () {
             setTimeout(() => {
                 prevCard.classList.remove("play");
                 this.classList.remove("play");
+                openCards = [];
                 playfield.classList.remove("playing");
                 prevCard.textContent = prevCardNum;
                 this.textContent = cardNum;
@@ -117,3 +123,7 @@ function pickCardNums() {
     res.push(num2);
     return res;
 }
+
+songs.forEach(song => {
+    console.log(song.cards[0] + " " + song.cards[1])
+});
